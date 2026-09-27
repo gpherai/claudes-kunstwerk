@@ -53,7 +53,7 @@ const LOOKS: Record<string, Look> = {
   kala: { tint: [0.012, 0.01, 0.035], glow: [1.0, 0.62, 0.25], g: 0.35, rays: 0, neb: 0.35, cx: 0, cy: 0 },
   nakshatra: { tint: [0.006, 0.012, 0.04], glow: [0.35, 0.5, 1.0], g: 0.25, rays: 0, neb: 0.4, cx: -0.35, cy: 0 },
   yantra: { tint: [0.04, 0.004, 0.008], glow: [1.0, 0.25, 0.1], g: 0.7, rays: 0.15, neb: 0.3, cx: 0, cy: 0 },
-  ekam: { tint: [0.012, 0.01, 0.02], glow: [1.0, 0.92, 0.8], g: 1.2, rays: 0.8, neb: 0.25, cx: 0.22, cy: 0 },
+  ekam: { tint: [0.012, 0.01, 0.02], glow: [1.0, 0.92, 0.8], g: 1.0, rays: 0.7, neb: 0.25, cx: 0.28, cy: 0 },
   gita: { tint: [0.03, 0.012, 0.01], glow: [1.0, 0.5, 0.18], g: 0.55, rays: 0.25, neb: 0.35, cx: -0.4, cy: 0 },
 };
 

@@ -8,6 +8,16 @@ import { i18n } from './core/i18n';
 import { clamp, smoothstep, prefersReducedMotion } from './core/util';
 import { ParticleScene } from './scenes/particles';
 import { CosmosScene } from './scenes/cosmos';
+import { NatarajaScene } from './scenes/nataraja';
+import { KalaSection } from './sections/kala';
+import { NakshatraSection } from './sections/nakshatra';
+import { YantraSection } from './sections/yantra';
+import { KolamSection } from './sections/kolam';
+import { FloorScene } from './scenes/floor';
+import { MandiraScene } from './scenes/mandira';
+import { PurnamScene } from './scenes/purnam';
+import { EkamSection } from './sections/ekam';
+import { GitaSection } from './sections/gita';
 
 import type { Section } from './core/section';
 
@@ -18,8 +28,8 @@ async function boot() {
   const stage = new Stage(canvas, chapters);
   const particles = new ParticleScene();
   const cosmos = new CosmosScene();
-  stage.add(particles, cosmos);
-  const sections: Section[] = [];
+  stage.add(particles, cosmos, new NatarajaScene(), new FloorScene(), new MandiraScene(), new PurnamScene());
+  const sections: Section[] = [new KalaSection(), new NakshatraSection(), new YantraSection(), new KolamSection(), new EkamSection(), new GitaSection()];
 
   (window as unknown as Record<string, unknown>).__sanatana = { lenis: null, chapters, stage, particles };
   const ring = document.querySelector<SVGCircleElement>('.gate__ring-fill')!;
@@ -154,5 +164,5 @@ async function boot() {
 boot().catch((err) => {
   console.error(err);
   const st = document.getElementById('gate-status');
-  if (st) st.textContent = 'WebGL2 is required for this journey.';
+  if (st) st.textContent = /webgl|context/i.test(String(err)) ? 'This journey needs WebGL2.' : 'Something went wrong — please reload.';
 });
