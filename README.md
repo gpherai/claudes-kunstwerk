@@ -38,11 +38,6 @@ npm run dev      # http://localhost:5173
 npm run build    # production build in dist/
 ```
 
-## Deploy (GitHub Pages)
-
-`.github/workflows/deploy.yml` builds and deploys on every push to `main`.
-Enable it once under **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-
 ## Credits
 
 - Śrī Yantra starting geometry: the rigid "Type III" construction as published in [`@vibzart/sri-yantra`](https://www.npmjs.com/package/@vibzart/sri-yantra) (MIT, after TeXample.net). The triple points are then solved exactly in the browser.
