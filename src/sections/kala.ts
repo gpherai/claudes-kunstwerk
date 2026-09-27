@@ -136,8 +136,8 @@ export class KalaSection implements Section {
     g.clearRect(0, 0, W, H);
     const mobile = this.canvas.clientWidth < 900;
     const cx = W * (mobile ? 0.5 : 0.56) + f.pointer.x * 8 * dpr;
-    const cy = H * (mobile ? 0.42 : 0.5) - f.pointer.y * 8 * dpr;
-    const R0 = Math.min(W, H) * (mobile ? 0.3 : 0.36);
+    const cy = H * (mobile ? 0.44 : 0.5) - f.pointer.y * 8 * dpr;
+    const R0 = Math.min(W, H) * (mobile ? 0.26 : 0.36);
     const k = 0.34;
     const enter = smoothstep(0, 0.12, f.chapters.progress('kala')) * 0.7 + 0.3 * f.chapters.coverage('kala');
 

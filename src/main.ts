@@ -32,6 +32,7 @@ async function boot() {
   const sections: Section[] = [new KalaSection(), new NakshatraSection(), new YantraSection(), new KolamSection(), new EkamSection(), new GitaSection()];
 
   (window as unknown as Record<string, unknown>).__sanatana = { lenis: null, chapters, stage, particles };
+  (window as unknown as Record<string, unknown>).__audio = audio;
   const ring = document.querySelector<SVGCircleElement>('.gate__ring-fill')!;
   const status = document.getElementById('gate-status')!;
   const setP = (p: number) => ring.style.setProperty('--p', String(clamp(p)));

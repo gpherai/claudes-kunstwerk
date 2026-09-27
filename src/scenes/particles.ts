@@ -296,7 +296,7 @@ export class ParticleScene extends StageScene {
     const q = new URLSearchParams(location.search);
     this.N = q.get('n') ? +q.get('n')! : isMobile() ? 256 : 512;
     this.steps = q.get('steps') ? +q.get('steps')! : 1;
-    this.baseBright = this.N >= 512 ? 0.16 : this.N >= 384 ? 0.26 : 0.5;
+    this.baseBright = this.N >= 512 ? 0.16 : this.N >= 384 ? 0.24 : 0.3;
     const N = this.N;
     const r = stage.renderer;
     this.camera.position.set(0, 0, 3.2);
@@ -489,8 +489,8 @@ export class ParticleScene extends StageScene {
     // composition per chapter (desktop: beside the text columns; mobile: above it)
     const wOm = 1 - plateIn, wNas = nasIn, wNada = plateIn * (1 - nasIn);
     T.gx = m ? 0 : wOm * W * 0.2 + wNada * -W * 0.12;
-    T.gy = m ? wOm * 0.42 + wNada * 0.16 + wNas * 0.34 : wOm * 0.04 + wNas * 0.34;
-    T.gs = m ? 1 : wOm * 0.9 + wNada * 1.0 + wNas * 0.8;
+    T.gy = m ? wOm * 0.5 + wNada * 0.2 + wNas * 0.36 : wOm * 0.04 + wNas * 0.34;
+    T.gs = m ? wOm * 0.78 + wNada * 0.95 + wNas * 0.85 : wOm * 0.9 + wNada * 1.0 + wNas * 0.8;
     T.plateVis = T.plate;
     return T;
   }

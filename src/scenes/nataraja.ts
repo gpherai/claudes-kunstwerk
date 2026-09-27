@@ -391,9 +391,9 @@ export class NatarajaScene extends StageScene {
     const prog = ch.progress('nataraja');
     const reveal = smoothstep(-0.02, 0.1, prog) * 0.7 + 0.3 * smoothstep(0.3, 1, ch.coverage('nataraja'));
     const stepping = ch.get('nataraja')!.step >= 0;
-    this.scale = mobile ? Math.min(w * 0.47, h * 0.36) : h * (stepping ? 0.4 : 0.43);
+    this.scale = mobile ? Math.min(w * 0.44, h * 0.3) : h * (stepping ? 0.4 : 0.43);
     this.cx = mobile ? w * 0.5 : w * (stepping ? 0.39 : 0.62);
-    this.cy = mobile ? h * 0.62 : h * 0.5;
+    this.cy = mobile ? h * 0.6 : h * 0.5;
     const u = this.quad.material.uniforms;
     const c = u.uCenter.value as THREE.Vector2;
     c.x = damp(c.x || this.cx, this.cx, 2.5, f.dt);
