@@ -242,6 +242,7 @@ export class YantraSection implements Section {
       const on = map[step] ?? [];
       this.svg.classList.toggle('is-focus', step >= 0);
       this.svg.classList.toggle('is-final', step === 5);
+      this.svg.classList.toggle('is-meru', step === 6);
       for (const g of this.groups) g.classList.toggle('is-on', on.some((c) => g.classList.contains(c)));
     }
     const pulse = 1 + 0.25 * Math.sin(f.t * 2.2);

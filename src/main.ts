@@ -16,8 +16,10 @@ import { KolamSection } from './sections/kolam';
 import { FloorScene } from './scenes/floor';
 import { MandiraScene } from './scenes/mandira';
 import { PurnamScene } from './scenes/purnam';
+import { MeruScene } from './scenes/meru';
 import { EkamSection } from './sections/ekam';
 import { GitaSection } from './sections/gita';
+import { AvataraSection } from './sections/avatara';
 
 import type { Section } from './core/section';
 
@@ -28,8 +30,8 @@ async function boot() {
   const stage = new Stage(canvas, chapters);
   const particles = new ParticleScene();
   const cosmos = new CosmosScene();
-  stage.add(particles, cosmos, new NatarajaScene(), new FloorScene(), new MandiraScene(), new PurnamScene());
-  const sections: Section[] = [new KalaSection(), new NakshatraSection(), new YantraSection(), new KolamSection(), new EkamSection(), new GitaSection()];
+  stage.add(particles, cosmos, new NatarajaScene(), new FloorScene(), new MandiraScene(), new PurnamScene(), new MeruScene());
+  const sections: Section[] = [new KalaSection(), new NakshatraSection(), new YantraSection(), new KolamSection(), new EkamSection(), new GitaSection(), new AvataraSection()];
 
   (window as unknown as Record<string, unknown>).__sanatana = { lenis: null, chapters, stage, particles };
   (window as unknown as Record<string, unknown>).__audio = audio;

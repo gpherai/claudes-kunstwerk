@@ -78,6 +78,7 @@ export const nl: Record<string, string> = {
   'yan.78t': 'Acht driehoeken, dan één',
   'yan.78': 'De wegnemer van alle kwalen; dan de ene binnenste driehoek, schenker van elke volmaaktheid.',
   'yan.9': 'Het punt zonder afmeting, waar Śiva en Śakti één zijn. <em>Sarvānanda-maya</em> — geheel gemaakt van gelukzaligheid. De reis naar binnen eindigt waar alles begon.',
+  'yan.meru': 'Verhef elke omhulling tot de hoogte van haar rang en het diagram wordt een berg: de Mahā Meru, de Śrī Yantra in drie dimensies, gegoten in metaal en vereerd in huizen en tempels. De top is de bindu. Beweeg je cursor om eromheen te lopen.',
   'yan.note': 'Een echte Śrī Yantra tekenen — waarin lijnen elkaar in exacte drievoudige punten ontmoeten — is een werkelijke wiskundige puzzel. Deze wordt numeriek opgelost in je browser, niet overgetrokken.',
 
   'kol.title': 'Een lijn rond elk punt',
@@ -95,6 +96,10 @@ export const nl: Record<string, string> = {
   'man.4': 'Kleinere pieken scharen zich rond de grote, en nog kleinere rond die. Bij de Kandāriya Mahādeva-tempel in Khajuraho herhalen vierentachtig miniatuurtorens het geheel — hier ook: één, vier, zestien, vierenzestig. Duizend jaar voordat het woord bestond: een fractal.',
   'man.5': 'De pelgrim loopt er met de klok mee omheen en houdt het heilige altijd aan de rechterkant — zoals de Zon langs de hemel lijkt te trekken.',
 
+  'av.title': 'Tien nederdalingen',
+  'av.lede': 'Telkens wanneer dharma afneemt, daalt Viṣṇu neer. De tien klassieke avatāra’s volgen een volgorde die velen met evolutie hebben vergeleken: van vis naar amfibie, naar dier, naar mens-dier, naar dwerg, naar de volledige mens — en één die nog moet komen.',
+  'av.water': 'water',
+  'av.human': 'mens',
   'ek.title': 'Eén waarheid, vele namen',
   'ek.lede': '“De waarheid is één; de wijzen noemen haar met vele namen.” Voor veel hindoes zijn de goden gezichten van één werkelijkheid — Brahman — zoals één licht uiteenvalt in vele kleuren. Kies een licht om een gezicht te ontmoeten.',
 

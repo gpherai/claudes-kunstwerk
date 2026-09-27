@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { StageScene, FSQuad, fsMaterial, type Frame } from '../core/stage';
 import { damp } from '../core/util';
+import type { Chapters } from '../core/chapters';
+import { meruAmount } from './meru';
 
 /* Ambient deep-space backdrop shared by the quieter chapters.
    Each chapter tints it: indigo for time, midnight for the sky,
@@ -53,6 +55,7 @@ const LOOKS: Record<string, Look> = {
   kala: { tint: [0.012, 0.01, 0.035], glow: [1.0, 0.62, 0.25], g: 0.35, rays: 0, neb: 0.35, cx: 0, cy: 0 },
   nakshatra: { tint: [0.006, 0.012, 0.04], glow: [0.35, 0.5, 1.0], g: 0.25, rays: 0, neb: 0.4, cx: -0.35, cy: 0 },
   yantra: { tint: [0.04, 0.004, 0.008], glow: [1.0, 0.25, 0.1], g: 0.7, rays: 0.15, neb: 0.3, cx: 0, cy: 0 },
+  avatara: { tint: [0.004, 0.018, 0.04], glow: [0.35, 0.65, 1.0], g: 0.22, rays: 0.08, neb: 0.45, cx: 0, cy: -0.1 },
   ekam: { tint: [0.012, 0.01, 0.02], glow: [1.0, 0.92, 0.8], g: 1.0, rays: 0.7, neb: 0.25, cx: 0.28, cy: 0 },
   gita: { tint: [0.03, 0.012, 0.01], glow: [1.0, 0.5, 0.18], g: 0.55, rays: 0.25, neb: 0.35, cx: -0.4, cy: 0 },
 };
@@ -64,6 +67,7 @@ export class CosmosScene extends StageScene {
   private quad!: FSQuad;
   private cur: Look = { ...LOOKS.kala, tint: [...LOOKS.kala.tint], glow: [...LOOKS.kala.glow] };
   glowBoost = 0;
+  chapterWeight(id: string, cov: number, ch: Chapters) { return id === 'yantra' ? cov * (1 - meruAmount(ch)) : cov; }
 
   async init() {
     this.quad = new FSQuad(fsMaterial(FRAG, {

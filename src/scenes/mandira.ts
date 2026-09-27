@@ -68,9 +68,25 @@ function shikharaGeometry(rings = 64) {
   return g;
 }
 
+/** Small corner āmalakas marking every storey (bhūmi) of the śikhara, in unit-spire space. */
+function bhumiAmalakas(aspect: number) {
+  const out: THREE.BufferGeometry[] = [];
+  const courses = 11;
+  for (let k = 1; k < courses; k++) {
+    const t = k / courses - 0.012;
+    const s = 1 - 0.66 * Math.pow(t, 1.45);
+    for (const [x, z] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) {
+      const g = amalakaGeometry(20, 5);
+      g.scale(0.16, 0.16 * aspect * 2.4, 0.16);
+      g.translate(x * s * 1.0, t, z * s * 1.0);
+      out.push(g);
+    }
+  }
+  return out;
+}
+
 /** Ribbed āmalaka (a fruit-like stone disc) + kalaśa (pot) + spike, unit scale. */
-function finialGeometry() {
-  const segs = 96, rows = 14;
+function amalakaGeometry(segs = 96, rows = 14) {
   const pos: number[] = [];
   const idx: number[] = [];
   for (let j = 0; j <= rows; j++) {
@@ -90,6 +106,11 @@ function finialGeometry() {
   const am = new THREE.BufferGeometry();
   am.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   am.setIndex(idx);
+  return am;
+}
+
+function finialGeometry() {
+  const am = amalakaGeometry();
   am.translate(0, 0.1, 0);
   const prof = [[0, 0], [0.16, 0], [0.2, 0.05], [0.13, 0.1], [0.22, 0.2], [0.24, 0.3], [0.18, 0.4], [0.08, 0.45], [0.1, 0.5], [0.04, 0.55], [0.03, 0.8], [0, 0.85]]
     .map(([x, y]) => new THREE.Vector2(x, y));
@@ -237,6 +258,26 @@ export class MandiraScene extends StageScene {
     const platMesh = new THREE.Mesh(merge(plat), stoneDark);
     platMesh.castShadow = platMesh.receiveShadow = true;
     this.base.add(platMesh);
+    const gate: THREE.BufferGeometry[] = [];
+    for (const px of [-2.6, 2.6]) {
+      gate.push(box(0.7, 0.4, 0.7, px, 0, 18.4));
+      gate.push(new THREE.CylinderGeometry(0.2, 0.26, 4.4, 12).translate(px, 0.4 + 2.2, 18.4));
+      gate.push(box(0.6, 0.3, 0.6, px, 4.8, 18.4));
+    }
+    gate.push(new THREE.TorusGeometry(2.6, 0.2, 8, 36, Math.PI).translate(0, 5.0, 18.4));
+    for (let i = 1; i < 8; i++) {
+      const a = (i / 8) * Math.PI;
+      gate.push(new THREE.SphereGeometry(0.16, 10, 8).translate(Math.cos(a) * 2.25, 5.0 + Math.sin(a) * 2.25, 18.4));
+    }
+    gate.push(box(6.2, 0.3, 0.5, 0, 5.1, 18.4));
+    const gf = finialGeometry(); gf.scale(1.1, 1.1, 1.1); gf.translate(0, 7.55, 18.4); gate.push(gf);
+    // dīpa-stambha: a pillar of lamps
+    gate.push(box(1.2, 0.5, 1.2, -9.5, 0, 14));
+    gate.push(new THREE.CylinderGeometry(0.22, 0.34, 6.5, 12).translate(-9.5, 0.5 + 3.25, 14));
+    for (let k = 0; k < 7; k++) gate.push(new THREE.TorusGeometry(0.55 - k * 0.04, 0.05, 6, 24).rotateX(Math.PI / 2).translate(-9.5, 1.3 + k * 0.8, 14));
+    const gateMesh = new THREE.Mesh(merge(gate), stoneDark);
+    gateMesh.castShadow = gateMesh.receiveShadow = true;
+    this.base.add(gateMesh);
     sc.add(this.base);
 
     // garbhagṛha walls (with moldings) — the sanctum
@@ -244,6 +285,36 @@ export class MandiraScene extends StageScene {
     const sg: THREE.BufferGeometry[] = [box(6.4, 5.2, 6.4, 0, Y0, -4)];
     for (const [y, s] of [[0, 7.0], [0.4, 6.8], [2.2, 6.7], [4.6, 6.9], [4.9, 7.1]] as const) sg.push(box(s, 0.28, s, 0, Y0 + y, -4));
     for (const sx of [-1, 1]) sg.push(box(0.5, 5.2, 2.2, sx * 3.35, Y0, -4), box(2.2, 5.2, 0.5, 0, Y0, -4 - 3.35));
+    // niches with sculpted figures (devakoṣṭhas) on three sides of the sanctum
+    const recess: THREE.BufferGeometry[] = [];
+    const figure = (x: number, y: number, z: number, nx: number, nz: number, sc: number, into: THREE.BufferGeometry[]) => {
+      const body = new THREE.CapsuleGeometry(0.13 * sc, 0.55 * sc, 4, 8).translate(0, 0.42 * sc, 0);
+      const head = new THREE.SphereGeometry(0.12 * sc, 10, 8).translate(0, 0.98 * sc, 0);
+      const crown = new THREE.ConeGeometry(0.09 * sc, 0.2 * sc, 8).translate(0, 1.16 * sc, 0);
+      const arms = new THREE.CapsuleGeometry(0.05 * sc, 0.5 * sc, 3, 6).rotateZ(Math.PI / 2).translate(0, 0.62 * sc, 0.02);
+      const base = new THREE.BoxGeometry(0.42 * sc, 0.08 * sc, 0.2 * sc);
+      for (const g of [body, head, crown, arms, base]) { g.translate(x + nx * 0.1, y, z + nz * 0.1); into.push(g); }
+    };
+    const niche = (x: number, z: number, nx: number, nz: number, big: boolean) => {
+      const w = big ? 1.15 : 0.8, h = big ? 2.0 : 1.5, y = Y0 + (big ? 1.5 : 1.8);
+      const along = Math.abs(nx) > 0 ? [0.16, h + 0.2, w + 0.3] : [w + 0.3, h + 0.2, 0.16];
+      sg.push(box(along[0], along[1], along[2], x + nx * 0.08, y - 0.1, z + nz * 0.08));
+      const inner = Math.abs(nx) > 0 ? [0.2, h, w] : [w, h, 0.2];
+      recess.push(box(inner[0], inner[1], inner[2], x + nx * 0.1, y, z + nz * 0.1));
+      // little pyramidal pediment above the niche
+      sg.push(new THREE.ConeGeometry(w * 0.62, 0.55, 4).rotateY(Math.PI / 4).scale(Math.abs(nx) > 0 ? 0.35 : 1, 1, Math.abs(nx) > 0 ? 1 : 0.35).translate(x + nx * 0.14, y + h + 0.32, z + nz * 0.14));
+      figure(x, y + 0.08, z, nx, nz, big ? 1.35 : 1.0, sg);
+    };
+    for (const sx of [-1, 1]) {
+      niche(sx * 3.6, -4, sx, 0, true);
+      niche(sx * 3.2, -6.3, sx, 0, false);
+      niche(sx * 3.2, -1.7, sx, 0, false);
+    }
+    niche(0, -7.6, 0, -1, true);
+    niche(-2.3, -7.2, 0, -1, false);
+    niche(2.3, -7.2, 0, -1, false);
+    const recMesh = new THREE.Mesh(merge(recess), new THREE.MeshStandardMaterial({ color: '#2a1810', roughness: 1 }));
+    this.sanctum.add(recMesh);
     const sanct = new THREE.Mesh(merge(sg), stone);
     sanct.castShadow = sanct.receiveShadow = true;
     this.sanctum.add(sanct);
@@ -274,8 +345,25 @@ export class MandiraScene extends StageScene {
       f.scale(fs * 1.6, fs * 1.6, fs * 1.6);
       f.translate(0, Y0 + h + roofH, z);
       hallGeo.push(f);
-      // balconies (kakṣāsana) on the sides
-      for (const sx of [-1, 1]) hallGeo.push(box(0.9, 1.3, d * 0.7, sx * (w / 2 + 0.45), Y0 + 1.1, z));
+      // balconies (kakṣāsana) on the sides, with little pillars and a row of dancing figures above
+      for (const sx of [-1, 1]) {
+        hallGeo.push(box(0.9, 1.3, d * 0.7, sx * (w / 2 + 0.45), Y0 + 1.1, z));
+        hallGeo.push(box(1.1, 0.18, d * 0.78, sx * (w / 2 + 0.5), Y0 + 3.3, z));
+        const nP = Math.max(2, Math.round(d * 0.9));
+        for (let i = 0; i < nP; i++) {
+          const pz = z - d * 0.33 + (i / (nP - 1)) * d * 0.66;
+          hallGeo.push(new THREE.CylinderGeometry(0.07, 0.08, 0.9, 8).translate(sx * (w / 2 + 0.85), Y0 + 2.85, pz));
+        }
+        const nF = Math.max(2, Math.round(d * 0.7));
+        for (let i = 0; i < nF; i++) {
+          const pz = z - d * 0.3 + (i / Math.max(1, nF - 1)) * d * 0.6;
+          const g = new THREE.CapsuleGeometry(0.09, 0.4, 3, 6).rotateZ(sx * 0.25).translate(sx * (w / 2 + 0.03), Y0 + h - 1.0, pz);
+          const hd = new THREE.SphereGeometry(0.09, 8, 6).translate(sx * (w / 2 + 0.03) + sx * 0.08, Y0 + h - 0.62, pz);
+          hallGeo.push(g, hd);
+        }
+      }
+      // a band of carved moulding on the walls
+      for (const yy of [0.35, h * 0.62]) hallGeo.push(box(w + 0.16, 0.14, d + 0.16, 0, Y0 + yy, z));
     };
     hall(-0.3, 3.8, 2.6, 4.6, 3.2, 6);
     hall(3.6, 7.2, 5.6, 4.6, 6.2, 9);
@@ -290,7 +378,7 @@ export class MandiraScene extends StageScene {
     sc.add(this.halls);
 
     // main śikhara + finial
-    const unit = merge([shikharaGeometry(), (() => { const f = finialGeometry(); f.scale(0.95, 0.95, 0.95); f.translate(0, 1.0, 0); return f; })()]);
+    const unit = merge([shikharaGeometry(), (() => { const f = finialGeometry(); f.scale(0.95, 0.95, 0.95); f.translate(0, 1.0, 0); return f; })(), ...bhumiAmalakas(3.3 / 16)]);
     const SH = 16, SW = 3.3, SY = Y0 + 5.2;
     this.spire = new THREE.Mesh(unit, stone);
     this.spire.castShadow = this.spire.receiveShadow = true;
@@ -338,6 +426,7 @@ export class MandiraScene extends StageScene {
     const dp: number[] = [];
     for (let i = 0; i < 40; i++) { const z = -10 + i * 0.66; dp.push(-6.9, 1.62, z, 6.9, 1.62, z); }
     for (let i = 0; i < 20; i++) { const x = -6.6 + i * 0.7; dp.push(x, 1.62, 14.9); }
+    for (let k = 0; k < 7; k++) for (let i = 0; i < 10; i++) { const a = (i / 10) * Math.PI * 2 + k * 0.3, r = 0.55 - k * 0.04; dp.push(-9.5 + Math.cos(a) * r, 1.42 + k * 0.8, 14 + Math.sin(a) * r); }
     const dg = new THREE.BufferGeometry();
     dg.setAttribute('position', new THREE.Float32BufferAttribute(dp, 3));
     this.diyas = new THREE.Points(dg, new THREE.ShaderMaterial({

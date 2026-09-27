@@ -25,6 +25,8 @@ export abstract class StageScene {
   stage!: Stage;
   async init(_stage: Stage): Promise<void> {}
   resize(_w: number, _h: number): void {}
+  /** Weight contributed by one of this scene's chapters (default: its viewport coverage). */
+  chapterWeight(_id: string, coverage: number, _ch: Chapters): number { return coverage; }
   abstract update(frame: Frame): void;
   abstract render(renderer: THREE.WebGLRenderer): void;
 }
@@ -262,7 +264,7 @@ export class Stage {
 
     for (const s of this.scenes) {
       let w = 0;
-      for (const id of s.chapters) w += this.chapters.coverage(id);
+      for (const id of s.chapters) w += s.chapterWeight(id, this.chapters.coverage(id), this.chapters);
       s.weight = Math.min(1, w);
     }
     const vis = this.scenes.filter((s) => s.weight > 0.003).sort((a, b) => b.weight - a.weight).slice(0, 2);

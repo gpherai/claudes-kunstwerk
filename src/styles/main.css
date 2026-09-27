@@ -265,6 +265,8 @@ body.is-entered .scroll-cue { opacity: 1; }
 .yantra { position: absolute; inset: 0; display: grid; place-items: center; }
 .yantra__svg { width: min(86vh, 92vw); height: min(86vh, 92vw); overflow: visible; transform: translateX(18vw); transition: transform 1.6s var(--ease); }
 .chapter.is-stepping .yantra__svg { transform: translateX(-11vw); }
+.yantra__svg.is-meru { opacity: 0; transform: translateX(-11vw) scale(0.92) !important; transition: opacity 1.2s var(--ease), transform 1.6s var(--ease); }
+#yantra .yantra__stats { transition: opacity 0.8s; }
 .yantra__svg { filter: drop-shadow(0 0 5px rgba(233, 185, 73, 0.5)); }
 .yantra__svg .yg { transition: opacity 1s var(--ease); }
 .yantra__svg .ln { fill: none; stroke: var(--gold); stroke-linejoin: round; stroke-linecap: round; transition: stroke 0.9s var(--ease), opacity 0.9s var(--ease); }
@@ -411,6 +413,35 @@ body.is-entered .scroll-cue { opacity: 1; }
   .yantra__steps { width: auto; }
   .yantra__svg, .chapter.is-stepping .yantra__svg { transform: translateY(-8vh) scale(0.92); }
   .mala__list { display: none; }
+}
+
+
+/* ───────── daśāvatāra ───────── */
+.avatara__head { position: absolute; left: var(--gutter); top: clamp(4.5rem, 10vh, 7rem); max-width: min(40rem, 90vw); z-index: 2; }
+.avatara__head .lede { max-width: 36rem; }
+.avatara__head .lede { transition: opacity 0.8s var(--ease), filter 0.8s; }
+.avatara__head.is-dim .lede { opacity: 0; filter: blur(6px); }
+.avatara__viewport { position: absolute; left: 0; right: 0; top: 50%; translate: 0 -34%; height: min(30rem, 58svh); overflow: visible; }
+.avatara__track { display: flex; gap: calc(min(20rem, 70vw) * 0.18); will-change: transform; }
+.avatar { flex: 0 0 min(20rem, 70vw); text-align: center; transition: filter 0.6s; transform-origin: 50% 30%; }
+.avatar__emblem { width: min(11rem, 40vw); aspect-ratio: 1; margin: 0 auto 0.6rem; filter: drop-shadow(0 0 14px rgba(240, 196, 106, 0.25)); }
+.avatar.is-active .avatar__emblem { filter: drop-shadow(0 0 26px rgba(240, 196, 106, 0.55)); }
+.avatar__emblem svg { width: 100%; height: 100%; overflow: visible; }
+.avatar__num { color: var(--gold); margin: 0; font-size: 1.1rem; }
+.avatar__name { font-family: var(--f-display); font-weight: 400; font-size: clamp(1.7rem, 2.4vw, 2.3rem); margin: 0.1rem 0 0.2rem; }
+.avatar__name .deva { color: var(--gold); font-size: 0.7em; margin-left: 0.3rem; }
+.avatar__yuga { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem; }
+.avatar__text { color: var(--ivory-2); font-size: 0.98rem; margin: 0 auto; max-width: 18rem; opacity: 0; transition: opacity 0.6s; }
+.avatar.is-active .avatar__text { opacity: 1; }
+.avatara__ribbon { position: absolute; left: 50%; translate: -50% 0; bottom: clamp(1.4rem, 5vh, 3rem); width: min(44rem, 80vw); z-index: 2; }
+.avatara__line { position: relative; height: 3px; border-radius: 3px; background: linear-gradient(90deg, #2f7bdc, #2fa37a 22%, #8a6a3a 38%, #ff8a2a 52%, #e9b949 75%, #f6efe2); opacity: 0.85; }
+.avatara__marker { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #fff4d6; box-shadow: 0 0 14px 3px rgba(255, 230, 170, 0.8); }
+.avatara__legend { display: flex; justify-content: space-between; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 0.6rem 0 0; }
+.avatara__stage { color: var(--gold-2); }
+@media (max-width: 900px) {
+  .avatara__head .lede { display: none; }
+  .avatara__viewport { translate: 0 -38%; }
+  .avatara__ribbon { width: 84vw; bottom: 5.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
