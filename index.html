@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Sanātana — The Eternal Way</title>
+  <meta name="description" content="An immersive journey through Sanātana Dharma — sound, time, sky, dance, geometry and the eternal. Every pixel and every sound is generated live by code." />
+  <meta name="theme-color" content="#05040a" />
+  <meta property="og:title" content="Sanātana — The Eternal Way" />
+  <meta property="og:description" content="An immersive journey through Sanātana Dharma. Every pixel and every sound is generated live by code." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2305040a'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23f2c14e'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%23f2c14e' stroke-width='1.5' opacity='.6'/%3E%3C/svg%3E" />
+</head>
+<body class="is-loading">
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ═══════════════ GATE ═══════════════ -->
+  <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <div class="gate__inner">
+      <div class="gate__mark" aria-hidden="true">
+        <svg class="gate__ring" viewBox="0 0 200 200">
+          <circle class="gate__ring-track" cx="100" cy="100" r="96" />
+          <circle class="gate__ring-fill" cx="100" cy="100" r="96" pathLength="1" />
+        </svg>
+        <p class="gate__om deva" lang="sa">ॐ</p>
+      </div>
+      <h1 id="gate-title" class="gate__title">Sanātana</h1>
+      <p class="gate__sub" data-i18n="gate.sub">A journey through the eternal way</p>
+      <div class="gate__actions">
+        <button class="btn btn--primary" id="enter-sound" disabled>
+          <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10H4z"/><path d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span data-i18n="gate.sound">Enter with sound</span>
+        </button>
+        <button class="btn btn--ghost" id="enter-silent" disabled data-i18n="gate.silent">Enter in silence</button>
+      </div>
+      <p class="gate__status" id="gate-status" data-i18n="gate.loading">Tuning the tanpura…</p>
+      <p class="gate__note" data-i18n="gate.note">No images. No audio files. Every pixel and every sound is generated live by code.</p>
+      <div class="gate__lang" role="group" aria-label="Language">
+        <button data-lang="en" aria-pressed="true">EN</button><span>·</span><button data-lang="nl" aria-pressed="false">NL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CHROME ═══════════════ -->
+  <header class="chrome" aria-label="Site controls">
+    <a class="chrome__logo" href="#om" aria-label="Sanātana — back to the beginning"><span class="deva" lang="sa">सनातन</span></a>
+    <div class="chrome__right">
+      <div class="chrome__lang" role="group" aria-label="Language">
+        <button data-lang="en" aria-pressed="true">EN</button><button data-lang="nl" aria-pressed="false">NL</button>
+      </div>
+      <button class="chrome__sound" id="sound-toggle" aria-pressed="false" aria-label="Toggle sound">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mala" aria-label="Chapters">
+    <svg class="mala__svg" viewBox="0 0 120 120" aria-hidden="true"></svg>
+    <ol class="mala__list"></ol>
+    <span class="mala__count" aria-hidden="true"></span>
+  </nav>
+
+  <main id="journey">
+
+    <!-- ═══════════════ 01 · OM ═══════════════ -->
+    <section class="chapter chapter--hero" id="om" data-chapter="om" data-title="Om" style="--len:170">
+      <div class="sticky">
+        <div class="hero">
+          <p class="hero__kicker deva" lang="sa">सनातन धर्म</p>
+          <h1 class="hero__title"><span class="hero__line">Sanātana</span> <span class="hero__line hero__line--it">Dharma</span></h1>
+          <p class="hero__sub" data-i18n="om.sub">The eternal way — without beginning, without end.</p>
+          <dl class="hero__gloss">
+            <div><dt><span class="deva" lang="sa">सनातन</span> <i>sanātana</i></dt><dd data-i18n="om.g1">eternal, ever-existing, always renewed</dd></div>
+            <div><dt><span class="deva" lang="sa">धर्म</span> <i>dharma</i></dt><dd data-i18n="om.g2">that which upholds — the order that sustains cosmos, society and self</dd></div>
+          </dl>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span data-i18n="om.cue">Scroll to begin the cycle</span><i></i></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 02 · NĀDA ═══════════════ -->
+    <section class="chapter" id="nada" data-chapter="nada" data-title="Nāda" style="--len:520">
+      <div class="sticky">
+        <div class="panel panel--left" data-dim>
+          <p class="label"><span class="deva">२</span> · Nāda Brahma</p>
+          <h2 class="title" data-i18n="nada.title">The world is sound</h2>
+          <p class="sanskrit deva" lang="sa">ओमित्येतदक्षरमिदं सर्वम्</p>
+          <p class="translit">om ity etad akṣaram idaṃ sarvam</p>
+          <p class="lede" data-i18n="nada.lede">Om — this syllable is all this. All that was, is and will be is Om; and whatever lies beyond the three times, that too is Om. <cite>Māṇḍūkya Upaniṣad 1</cite></p>
+        </div>
+        <ol class="steps steps--right" data-steps>
+          <li class="step" data-step>
+            <p class="step__glyph deva" lang="sa">अ</p>
+            <h3 class="step__title">A · <i>Jāgrat</i> <span data-i18n="nada.a.t">— waking</span></h3>
+            <p data-i18n="nada.a.p">The first sound opens the throat. It is the waking world: turned outward, shared by all, made of objects.</p>
+          </li>
+          <li class="step" data-step>
+            <p class="step__glyph deva" lang="sa">उ</p>
+            <h3 class="step__title">U · <i>Svapna</i> <span data-i18n="nada.u.t">— dreaming</span></h3>
+            <p data-i18n="nada.u.p">The second sound rolls forward through the mouth. It is the dream world: turned inward, luminous, made of mind.</p>
+          </li>
+          <li class="step" data-step>
+            <p class="step__glyph deva" lang="sa">म</p>
+            <h3 class="step__title">M · <i>Suṣupti</i> <span data-i18n="nada.m.t">— deep sleep</span></h3>
+            <p data-i18n="nada.m.p">The third sound closes the lips. It is dreamless sleep: undivided, at rest, a single mass of awareness.</p>
+          </li>
+          <li class="step" data-step>
+            <p class="step__glyph deva" lang="sa">ॐ</p>
+            <h3 class="step__title"><i>Turīya</i> <span data-i18n="nada.t.t">— the fourth</span></h3>
+            <p data-i18n="nada.t.p">Then, the silence after the sound. Not a state but the witness of all states — peaceful, auspicious, without a second. This, says the Upaniṣad, is the Self.</p>
+          </li>
+        </ol>
+        <p class="footnote" data-i18n="nada.note">Sand on a vibrating plate gathers where the plate stands still. What you see is that physics, computed live for every grain.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 03 · NĀSADĪYA ═══════════════ -->
+    <section class="chapter" id="nasadiya" data-chapter="nasadiya" data-title="Nāsadīya" style="--len:640">
+      <div class="sticky">
+        <div class="panel panel--top" data-dim>
+          <p class="label"><span class="deva">३</span> · Ṛg Veda 10.129</p>
+          <h2 class="title" data-i18n="nas.title">The Hymn of Creation</h2>
+          <p class="lede" data-i18n="nas.lede">Some three thousand years ago, a Vedic poet asked the oldest question of all — and had the courage to leave it open.</p>
+        </div>
+        <ol class="steps steps--bottom" data-steps>
+          <li class="step verse" data-step>
+            <p class="sanskrit deva" lang="sa">नासदासीन्नो सदासीत्तदानीं नासीद्रजो नो व्योमा परो यत् ।<br>किमावरीवः कुह कस्य शर्मन्नम्भः किमासीद्गहनं गभीरम् ॥</p>
+            <p class="verse__tr" data-i18n="nas.v1">Then there was neither non-being nor being; no realm of air, no sky beyond. What stirred? Where? In whose keeping? Was there water, bottomlessly deep?</p>
+          </li>
+          <li class="step verse" data-step>
+            <p class="sanskrit deva" lang="sa">न मृत्युरासीदमृतं न तर्हि न रात्र्या अह्न आसीत्प्रकेतः ।<br>आनीदवातं स्वधया तदेकं तस्माद्धान्यन्न परः किं चनास ॥</p>
+            <p class="verse__tr" data-i18n="nas.v2">There was no death then, nor deathlessness; no sign of night or day. That One breathed, without wind, by its own nature. Other than that, there was nothing at all.</p>
+          </li>
+          <li class="step verse" data-step>
+            <p class="sanskrit deva" lang="sa">तम आसीत्तमसा गूळ्हमग्रेऽप्रकेतं सलिलं सर्वमा इदम् ।<br>तुच्छ्येनाभ्वपिहितं यदासीत्तपसस्तन्महिनाजायतैकम् ॥</p>
+            <p class="verse__tr" data-i18n="nas.v3">Darkness was hidden by darkness in the beginning; all this was formless water. What was coming into being, covered by the void — that One was born through the power of heat.</p>
+          </li>
+          <li class="step verse" data-step>
+            <p class="sanskrit deva" lang="sa">कामस्तदग्रे समवर्तताधि मनसो रेतः प्रथमं यदासीत् ।<br>सतो बन्धुमसति निरविन्दन्हृदि प्रतीष्या कवयो मनीषा ॥</p>
+            <p class="verse__tr" data-i18n="nas.v4">In the beginning, desire arose in it — the first seed of mind. Searching their hearts with wisdom, the poets found the bond of being in non-being.</p>
+          </li>
+          <li class="step verse" data-step>
+            <p class="sanskrit deva" lang="sa">को अद्धा वेद क इह प्र वोचत्कुत आजाता कुत इयं विसृष्टिः ।<br>अर्वाग्देवा अस्य विसर्जनेनाथा को वेद यत आबभूव ॥</p>
+            <p class="verse__tr" data-i18n="nas.v6">But who really knows? Who here can say it — where it was born, where this creation came from? The gods came later than this world's creation. So who knows where it arose?</p>
+          </li>
+          <li class="step verse" data-step>
+            <p class="sanskrit deva" lang="sa">इयं विसृष्टिर्यत आबभूव यदि वा दधे यदि वा न ।<br>यो अस्याध्यक्षः परमे व्योमन्त्सो अङ्ग वेद यदि वा न वेद ॥</p>
+            <p class="verse__tr" data-i18n="nas.v7">Where this creation came from — whether it made itself, or whether it did not — the one who watches over it in the highest heaven, surely he knows. Or perhaps he does not know.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 04 · KĀLA ═══════════════ -->
+    <section class="chapter" id="kala" data-chapter="kala" data-title="Kāla" style="--len:720">
+      <div class="sticky">
+        <canvas class="kala__canvas" aria-hidden="true"></canvas>
+        <div class="panel panel--left kala__intro">
+          <p class="label"><span class="deva">४</span> · Kāla</p>
+          <h2 class="title" data-i18n="kala.title">Time is a wheel</h2>
+          <p class="lede" data-i18n="kala.lede">Time here does not run in a line from creation to the end. It turns — in cycles within cycles, from the blink of an eye to the lifetime of the creator himself.</p>
+        </div>
+        <div class="kala__readout" aria-live="off">
+          <p class="kala__unit deva" lang="sa">निमेष</p>
+          <p class="kala__name">Nimeṣa</p>
+          <p class="kala__value">0.2 s</p>
+        </div>
+        <ol class="steps steps--right kala__steps" data-steps>
+          <li class="step" data-step><h3 class="step__title">Nimeṣa</h3><p data-i18n="kala.s1">The blink of an eye. Fifteen blinks make a kāṣṭhā, thirty kāṣṭhās a kalā, thirty kalās a muhūrta.</p></li>
+          <li class="step" data-step><h3 class="step__title">Muhūrta</h3><p data-i18n="kala.s2">Forty-eight minutes. Thirty muhūrtas make a day and a night — and each has its own quality, favourable or not, for every undertaking.</p></li>
+          <li class="step" data-step><h3 class="step__title">Divya varṣa</h3><p data-i18n="kala.s3">A whole human year is a single day and night of the gods. Their year lasts 360 of ours.</p></li>
+          <li class="step" data-step><h3 class="step__title">Yuga</h3><p data-i18n="kala.s4">Four ages follow each other, shorter each time, in the ratio 4 : 3 : 2 : 1. In the first, Dharma stands firm on four legs like a bull; with every age it loses one.</p>
+            <div class="yugas" aria-hidden="true">
+              <div style="--w:4"><b>Satya</b><span>1,728,000</span></div>
+              <div style="--w:3"><b>Tretā</b><span>1,296,000</span></div>
+              <div style="--w:2"><b>Dvāpara</b><span>864,000</span></div>
+              <div style="--w:1"><b>Kali</b><span>432,000</span></div>
+            </div>
+          </li>
+          <li class="step" data-step><h3 class="step__title">Mahāyuga</h3><p data-i18n="kala.s5">Together the four ages form a great age of 4,320,000 years. Seventy-one great ages make the reign of one Manu, the father of humanity.</p></li>
+          <li class="step" data-step><h3 class="step__title">Kalpa</h3><p data-i18n="kala.s6">A thousand great ages are one day of Brahmā, the creator: 4.32 billion years — roughly the age of the Earth. An equally long night follows, in which the worlds rest, dissolved.</p></li>
+          <li class="step" data-step><h3 class="step__title">Mahākalpa</h3><p data-i18n="kala.s7">Brahmā lives a hundred years of such days and nights: 311 trillion years. Then he too dissolves — and a new Brahmā awakens on a lotus.</p></li>
+          <li class="step" data-step><h3 class="step__title" data-i18n="kala.s8t">And beyond?</h3><p data-i18n="kala.s8">Countless universes, says the Bhāgavata Purāṇa, drift like specks of dust through the pores of the Infinite — each with its own Brahmā, each turning on its own wheel.</p></li>
+        </ol>
+        <div class="kala__now">
+          <p class="kala__now-label" data-i18n="kala.now">Right now, by the traditional reckoning</p>
+          <p class="kala__now-main"><span data-i18n="kala.kali">Kali Yuga, year</span> <b class="mono" data-kali-year>5,128</b></p>
+          <p class="kala__now-clock mono" data-kali-clock>—</p>
+          <p class="kala__now-sub"><span class="mono" data-kali-left>426,872</span> <span data-i18n="kala.left">years remain in this age</span></p>
+        </div>
+        <blockquote class="quote kala__quote">
+          <p data-i18n="kala.sagan">“The Hindu religion is the only one of the world’s great faiths dedicated to the idea that the Cosmos itself undergoes an immense, indeed an infinite, number of deaths and rebirths. It is the only religion in which the time scales correspond… to those of modern scientific cosmology.”</p>
+          <footer>— Carl Sagan, <cite>Cosmos</cite> (1980)</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 05 · NAKṢATRA ═══════════════ -->
+    <section class="chapter" id="nakshatra" data-chapter="nakshatra" data-title="Nakṣatra" style="--len:260">
+      <div class="sticky">
+        <div class="sky">
+          <div class="sky__wheel">
+            <canvas class="sky__canvas" aria-label="Sidereal zodiac with the 27 nakṣatras, real stars and the current positions of the nine grahas"></canvas>
+          </div>
+          <div class="sky__text">
+            <p class="label"><span class="deva">५</span> · Pañcāṅga</p>
+            <h2 class="title" data-i18n="sky.title">The sky, right now</h2>
+            <p class="lede" data-i18n="sky.lede">For three thousand years, Hindu timekeeping has read the clock of the heavens: the Moon racing the Sun through twenty-seven lunar mansions, the nakṣatras. This almanac — the pañcāṅga, “five limbs” — is being calculated in your browser, for this very moment.</p>
+            <div class="panchang" data-panchang></div>
+            <p class="footnote footnote--inline" data-i18n="sky.note">Sidereal positions with Lahiri ayanāṃśa, geocentric, for this instant. Traditional almanacs name the day by the tithi at local sunrise. Stars: Yale Bright Star Catalogue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 06 · NAṬARĀJA ═══════════════ -->
+    <section class="chapter" id="nataraja" data-chapter="nataraja" data-title="Naṭarāja" style="--len:660">
+      <div class="sticky">
+        <div class="panel panel--left">
+          <p class="label"><span class="deva">६</span> · Ānanda Tāṇḍava</p>
+          <h2 class="title" data-i18n="nat.title">The dance of Śiva</h2>
+          <p class="lede" data-i18n="nat.lede">In a ring of fire, Śiva as Naṭarāja — Lord of Dance — dances the universe into being, sustains it and dissolves it, in one endless movement. The dance has five acts.</p>
+        </div>
+        <div class="hotspots" aria-hidden="true">
+          <span class="hotspot" data-hot="0"></span><span class="hotspot" data-hot="1"></span><span class="hotspot" data-hot="2"></span><span class="hotspot" data-hot="3"></span><span class="hotspot" data-hot="4"></span>
+        </div>
+        <ol class="steps steps--right" data-steps>
+          <li class="step" data-step><p class="step__num deva">१</p><h3 class="step__title">Sṛṣṭi · <span data-i18n="nat.1t">creation</span></h3><p data-i18n="nat.1">In his upper right hand, the ḍamaru: the hourglass drum. Its beat is the first pulse of time — from sound, creation unfolds.</p></li>
+          <li class="step" data-step><p class="step__num deva">२</p><h3 class="step__title">Sthiti · <span data-i18n="nat.2t">preservation</span></h3><p data-i18n="nat.2">His lower right hand is raised in abhaya mudrā — “do not fear.” The dance sustains everything it creates.</p></li>
+          <li class="step" data-step><p class="step__num deva">३</p><h3 class="step__title">Saṃhāra · <span data-i18n="nat.3t">dissolution</span></h3><p data-i18n="nat.3">In his upper left hand, agni: the fire that ends every form, so that new forms can arise. The ring of flames is the cosmos itself, always burning.</p></li>
+          <li class="step" data-step><p class="step__num deva">४</p><h3 class="step__title">Tirobhāva · <span data-i18n="nat.4t">concealment</span></h3><p data-i18n="nat.4">His right foot presses down Apasmāra, the dwarf of ignorance — the veil of forgetting that hides our true nature.</p></li>
+          <li class="step" data-step><p class="step__num deva">५</p><h3 class="step__title">Anugraha · <span data-i18n="nat.5t">grace</span></h3><p data-i18n="nat.5">His left hand points, like an elephant’s trunk, to the raised foot: refuge and release. Freedom is within reach.</p></li>
+          <li class="step" data-step><h3 class="step__title">CERN, 2004</h3><p data-i18n="nat.6">A two-metre Naṭarāja stands at CERN, the European laboratory for particle physics — a gift from India. Its plaque quotes the physicist Fritjof Capra: “For the modern physicists, then, Shiva’s dance is the dance of subatomic matter.”</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 07 · YANTRA ═══════════════ -->
+    <section class="chapter" id="yantra" data-chapter="yantra" data-title="Yantra" style="--len:560">
+      <div class="sticky">
+        <div class="yantra">
+          <svg class="yantra__svg" viewBox="-1.12 -1.12 2.24 2.24" role="img" aria-label="Śrī Yantra, drawn from computed geometry"></svg>
+        </div>
+        <div class="panel panel--left">
+          <p class="label"><span class="deva">७</span> · Śrī Yantra</p>
+          <h2 class="title" data-i18n="yan.title">Geometry of the Goddess</h2>
+          <p class="lede" data-i18n="yan.lede">Nine interlocking triangles — four pointing up for Śiva, pure consciousness, and five pointing down for Śakti, creative energy — weave forty-three smaller triangles around a single point. The Śrī Yantra is worshipped as the body of the Goddess Tripura Sundarī: the whole cosmos, as geometry.</p>
+        </div>
+        <ol class="steps steps--right yantra__steps" data-steps>
+          <li class="step" data-step><p class="step__num deva">१</p><h3 class="step__title">Bhūpura</h3><p data-i18n="yan.1">A square with four gates: the earth plane, where the pilgrim enters. <em>Trailokya-mohana</em> — enchanter of the three worlds.</p></li>
+          <li class="step" data-step><p class="step__num deva">२–३</p><h3 class="step__title" data-i18n="yan.23t">Lotuses of 16 and 8 petals</h3><p data-i18n="yan.23">The fulfiller of all desires, and the stirrer of all — the senses and the mind, blossoming outward.</p></li>
+          <li class="step" data-step><p class="step__num deva">४</p><h3 class="step__title" data-i18n="yan.4t">Fourteen triangles</h3><p data-i18n="yan.4"><em>Sarva-saubhāgya-dāyaka</em> — the giver of all good fortune.</p></li>
+          <li class="step" data-step><p class="step__num deva">५–६</p><h3 class="step__title" data-i18n="yan.56t">Two rings of ten</h3><p data-i18n="yan.56">The accomplisher of all aims, and the protector of all.</p></li>
+          <li class="step" data-step><p class="step__num deva">७–८</p><h3 class="step__title" data-i18n="yan.78t">Eight triangles, then one</h3><p data-i18n="yan.78">The remover of all ills; then the single inner triangle, giver of every perfection.</p></li>
+          <li class="step" data-step><p class="step__num deva">९</p><h3 class="step__title">Bindu</h3><p data-i18n="yan.9">The point without dimension, where Śiva and Śakti are one. <em>Sarvānanda-maya</em> — made entirely of bliss. The journey inward ends where everything began.</p></li>
+        </ol>
+        <p class="footnote" data-i18n="yan.note">Drawing a true Śrī Yantra — where lines meet in exact triple points — is a real mathematical puzzle. This one is solved numerically in your browser, not traced.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 08 · KOLAM ═══════════════ -->
+    <section class="chapter chapter--kolam" id="kolam" data-chapter="kolam" data-title="Kolam" style="--len:200">
+      <div class="sticky">
+        <div class="kolam">
+          <div class="kolam__stage">
+            <svg class="kolam__svg" role="img" aria-label="A generated kolam"></svg>
+          </div>
+          <div class="kolam__text">
+            <p class="label"><span class="deva">८</span> · Kolam</p>
+            <h2 class="title" data-i18n="kol.title">A line around every point</h2>
+            <p class="lede" data-i18n="kol.lede">Every dawn across Tamil Nadu, women sweep the threshold and draw a kolam: one flowing line of rice flour, looping around a grid of dots. By noon it is gone — walked over, blown away, eaten by ants and birds. That is the point: a daily gift of beauty, and of food for the smallest beings. Tomorrow, a new one.</p>
+            <p class="body" data-i18n="kol.body">The loops follow hidden rules; mathematicians study them as mirror curves. This one was just generated, for you alone.</p>
+            <div class="kolam__controls">
+              <button class="btn btn--primary" data-kolam="new" data-i18n="kol.new">Draw a new kolam</button>
+              <div class="seg" role="group" aria-label="Grid size">
+                <button data-kolam-size="5">5</button><button data-kolam-size="7" aria-pressed="true">7</button><button data-kolam-size="9">9</button><button data-kolam-size="11">11</button>
+              </div>
+              <label class="switch"><input type="checkbox" data-kolam="sikku" checked /><span></span><b data-i18n="kol.sikku">One single line</b></label>
+              <label class="switch"><input type="checkbox" data-kolam="color" /><span></span><b data-i18n="kol.color">Festival colours</b></label>
+            </div>
+            <p class="kolam__meta mono" data-kolam-meta></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 09 · MANDIRA ═══════════════ -->
+    <section class="chapter" id="mandira" data-chapter="mandira" data-title="Mandira" style="--len:640">
+      <div class="sticky">
+        <div class="panel panel--left">
+          <p class="label"><span class="deva">९</span> · Mandira</p>
+          <h2 class="title" data-i18n="man.title">The temple is a mountain</h2>
+        </div>
+        <ol class="steps steps--right" data-steps>
+          <li class="step" data-step><h3 class="step__title">Vāstu-puruṣa-maṇḍala</h3><p data-i18n="man.1">It begins as a diagram: a grid of sixty-four squares on which the cosmic being lies, with Brahmā at its centre. The plan of the temple is a map of the universe.</p></li>
+          <li class="step" data-step><h3 class="step__title">Garbhagṛha</h3><p data-i18n="man.2">At the heart, the “womb-house”: a small, dark, unadorned chamber where the deity dwells. Everything else exists to lead you here.</p></li>
+          <li class="step" data-step><h3 class="step__title">Śikhara</h3><p data-i18n="man.3">Above the womb rises the “peak” — Mount Meru, axis of the world, the mountain at the centre of the cosmos.</p></li>
+          <li class="step" data-step><h3 class="step__title" data-i18n="man.4t">A fractal in stone</h3><p data-i18n="man.4">Smaller peaks cluster around the great one, and smaller ones around those. At Khajuraho’s Kandāriya Mahādeva temple, eighty-four miniature spires echo the whole — here, too: one, four, sixteen, sixty-four. A thousand years before the word existed, a fractal.</p></li>
+          <li class="step" data-step><h3 class="step__title">Pradakṣiṇā</h3><p data-i18n="man.5">The pilgrim circles it clockwise, keeping the sacred always to the right — the way the Sun seems to travel across the sky.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 10 · EKAṂ SAT ═══════════════ -->
+    <section class="chapter" id="ekam" data-chapter="ekam" data-title="Ekaṃ Sat" style="--len:320">
+      <div class="sticky">
+        <div class="ekam">
+          <div class="ekam__head">
+            <p class="label"><span class="deva">१०</span> · Ṛg Veda 1.164.46</p>
+            <h2 class="title" data-i18n="ek.title">One truth, many names</h2>
+            <p class="sanskrit deva" lang="sa">एकं सद्विप्रा बहुधा वदन्ति</p>
+            <p class="translit">ekaṃ sad viprā bahudhā vadanti</p>
+            <p class="lede" data-i18n="ek.lede">“Truth is one; the wise call it by many names.” For many Hindus, the gods are faces of one reality — Brahman — the way one light breaks into many colours. Choose a light to meet a face.</p>
+          </div>
+          <div class="ekam__orbit" data-orbit></div>
+        </div>
+        <div class="deity" data-deity hidden>
+          <button class="deity__close" data-deity-close aria-label="Close">×</button>
+          <div class="deity__emblem" data-deity-emblem></div>
+          <div class="deity__body" data-deity-body></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 11 · GĪTĀ ═══════════════ -->
+    <section class="chapter" id="gita" data-chapter="gita" data-title="Gītā" style="--len:300">
+      <div class="sticky">
+        <div class="gita">
+          <div class="gita__wheel-wrap">
+            <svg class="gita__wheel" viewBox="-1.05 -1.05 2.1 2.1" role="img" aria-label="A chariot wheel after the Konark Sun Temple. Drag or press to spin."></svg>
+            <div class="gita__pointer" aria-hidden="true"></div>
+            <button class="gita__spin btn btn--primary" data-i18n="gita.spin">Spin the wheel</button>
+          </div>
+          <div class="gita__text">
+            <p class="label"><span class="deva">११</span> · Bhagavad Gītā</p>
+            <h2 class="title" data-i18n="gita.title">The song on the battlefield</h2>
+            <p class="lede" data-i18n="gita.lede">Between two armies, a warrior lays down his bow. His charioteer, Kṛṣṇa, answers his despair in seven hundred verses — on action, death and freedom. The Gītā has eighteen chapters; the war it opens lasted eighteen days. Spin the chariot wheel to receive a verse.</p>
+            <article class="verse-card" data-verse aria-live="polite"></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ 12 · PŪRṆAM ═══════════════ -->
+    <section class="chapter" id="purnam" data-chapter="purnam" data-title="Pūrṇam" style="--len:520">
+      <div class="sticky">
+        <ol class="steps steps--center purnam__steps" data-steps>
+          <li class="step" data-step>
+            <p class="label"><span class="deva">१२</span> · Īśa Upaniṣad</p>
+            <p class="sanskrit sanskrit--xl deva" lang="sa">ॐ पूर्णमदः पूर्णमिदं पूर्णात्पूर्णमुदच्यते ।<br>पूर्णस्य पूर्णमादाय पूर्णमेवावशिष्यते ॥</p>
+            <p class="verse__tr verse__tr--xl" data-i18n="pur.1">That is whole. This is whole. From the whole, the whole arises. Take the whole from the whole — and the whole remains.</p>
+          </li>
+          <li class="step" data-step>
+            <p class="body body--center" data-i18n="pur.2">Look closely: every sphere reflects every other. Each one holds the whole.</p>
+          </li>
+          <li class="step" data-step>
+            <p class="label">Chāndogya Upaniṣad 6.8.7</p>
+            <p class="sanskrit sanskrit--xxl deva" lang="sa">तत् त्वम् असि</p>
+            <p class="translit">tat tvam asi</p>
+            <p class="verse__tr verse__tr--xl" data-i18n="pur.3">You are That.</p>
+          </li>
+          <li class="step" data-step>
+            <p class="sanskrit sanskrit--xl deva" lang="sa">ॐ शान्तिः शान्तिः शान्तिः</p>
+            <p class="body body--center" data-i18n="pur.4">Peace within. Peace around. Peace beyond.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PRALAYA / RETURN ═══════════════ -->
+    <section class="chapter chapter--return" id="pralaya" data-chapter="pralaya" data-title="Pralaya" style="--len:230">
+      <div class="sticky">
+        <div class="return">
+          <p class="return__line" data-i18n="ret.1">There is no end. Only return.</p>
+          <div class="return__bindu" aria-hidden="true"></div>
+          <p class="return__hint mono" data-i18n="ret.2">keep scrolling — the cycle begins again</p>
+        </div>
+        <footer class="colophon">
+          <p data-i18n="col.1">Sanātana was made entirely of code by Claude, an AI by Anthropic: GPU particle physics, shaders, synthesized tanpura and voice, live astronomy, numerically solved geometry. There are no images and no audio files on this site.</p>
+          <p data-i18n="col.2">Sanātana Dharma is a vast, living and plural tradition. This is one small, loving attempt to show some of its beauty — not a complete or authoritative account. Translations of the Sanskrit are free renderings.</p>
+          <p class="mono colophon__tech">three.js · GSAP · Lenis · astronomy-engine · Yale Bright Star Catalogue · Web Audio · WebGL2</p>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <noscript><div class="noscript">This journey is generated live and needs JavaScript.</div></noscript>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
